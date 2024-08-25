@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>Text to speech</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    .container{
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(30deg,red,yellow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .container h1{
+        font-size: 45px;
+        font-weight: 500;
+        color: blanchedalmond;
+        margin-top: -51px;
+        margin-bottom:50px ;
+    }
+    .container textarea{
+        background-color: burlywood;
+        border: none;
+        width: 600px;
+        height: 250px;
+        font-size: 15px;
+        padding: 10px;
+        color: white;
+        border-radius: 10px;
+    }
+    .container textarea::placeholder{
+        color: white;
+        font-size: 20px;
+        font-weight:bolder
+    }
+    @media (max-width:600px) {
+        .container textarea{
+            width: 300px;
+        }
+        .container .btns{
+            width: 300px;
+            
+        }
+        .container h1{
+            margin-left: 20px;
+        }
+    }
+    .btns{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: 600px;
+        height: 60px;
+    }
+    .btns select{
+        width: 60%;
+        background-color: rgb(231, 197, 153);
+        border: none;
+        border-radius: 10px;
+        height: 40px;
+        box-shadow: 20px 20px 50px black;
+        /* color: white; */
+    }
+    .btns button{
+        width: 40%;
+        background-color:rgb(54, 184, 184);
+        border: none;
+        border-radius: 10px;
+        height: 40px;
+        color: white;
+        font-weight: bolder;
+        box-shadow: 20px 20px 50px black;
+        font-size: large;
+    }
+    .container h1 span{
+        color:rgb(54, 184, 184);
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>Text To Speech <span>  Converter</span></h1>
+        <textarea placeholder=" enter your text here..."></textarea>
+        <div class="btns">
+            <select></select>
+            <button>Listen</button>
+        </div>
+    </div>
+</body>
+<script>
+    let speech = new SpeechSynthesisUtterance()
+    let voices =[];
+    let voiceselect =document.querySelector("select")
+
+    window.speechSynthesis.onvoiceschanged=()=>{
+        voices =window.speechSynthesis.getVoices()
+        speech.voice=voices[0]
+
+        voices.forEach((voice , i)=>(voiceselect.options[i]=new Option(voice.name , i)))
+    }
+
+    voiceselect.addEventListener("change",()=>{
+        speech.voice = voices[voiceselect.value];
+    })
+
+    document.querySelector("button").addEventListener("click",()=>{
+        speech.text= document.querySelector("textarea").value
+        window.speechSynthesis.speak(speech)
+    })
+</script>
+
+</html>

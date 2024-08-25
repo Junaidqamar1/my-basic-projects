@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+</head>
+<style>
+    *{
+        padding: 0;margin: 0;
+    }
+    .content{
+        width: 100%;
+        min-height: 100vh;
+        /* background: linear-gradient(35deg ,purple , rgb(70, 70, 236)); */
+        background-image: url(rain-drops-window-background-wallpaper_783299-2653.avif);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .clock{
+        width: 800px;
+        height: 160px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50% , -50%);
+   
+    backdrop-filter: blur(5px); /* Adjust the blur strength */
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 20px;
+    box-shadow: 20px 20px 50px black;
+    
+
+}
+.clock span{
+    font-size: 80px;
+    width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: aliceblue;
+
+    /* gap: 5px; */
+}
+.clock .hrs::after{
+    content: "HOURS";
+    font-size: medium;
+    position: absolute;
+    bottom: 5px;
+    transform: translateX(-50%);
+    left:50%;
+}
+.clock .min::after{
+    content: "MINUTES";
+    font-size: medium;
+        position: absolute;
+    bottom: 5px;
+    transform: translateX(-50%);
+    left:50%;
+}
+.clock .sec::after{
+    content: "SECONDS";
+    font-size: medium;
+        position: absolute;
+    bottom: 5px;
+    transform: translateX(-50%);
+    left:50%;
+}
+
+
+
+       
+    
+</style>
+<body>
+    <div class="content">
+        <div class="clock">
+            <span class="hrs">00</span>
+            <span>:</span>
+            <span class="min">00</span>
+            <span>:</span>
+            <span class="sec">00</span>
+        </div>
+    </div>
+</body>
+<script>
+     let hrs = document.querySelector(".hrs")
+     let min = document.querySelector(".min")
+     let sec = document.querySelector(".sec")
+
+     
+     setInterval(()=>{
+         let time =new Date()
+        hrs.innerHTML=time.getHours()
+        min.innerHTML=time.getMinutes()
+        sec.innerHTML=time.getSeconds()
+        console.log(time.getSeconds())
+       
+     },1000)
+</script>
+</html>

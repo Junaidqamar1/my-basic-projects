@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+</head>
+<style>
+    *{padding: 0;margin: 0;}
+    .content{
+        width: 100vw;
+        height: 100vh;
+        background-color: rgb(184, 107, 52);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+    .content p{
+        font-size: 3em;
+        color:blanchedalmond;
+        
+        height: 50px;
+
+    }
+    .container{
+        width: 400px;
+        /* height: 800px; */
+        flex-wrap: wrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content:center ;
+        gap: 10px;
+    }
+    .box{
+        background-color:darkgray;
+        height: 120px;
+        width: 120px;
+        border-radius: 10px;
+        font-size: 5em;
+        
+        display:flex ;
+        align-items: center;
+        justify-content: center;
+        color:darkcyan;
+        box-shadow: 2px 2px black;
+    }
+    .btn{
+        width: 120px;
+        height: 40px;
+        border-radius: 10px;
+        background-color: bisque;
+        color: blue;
+        font-size: larger; 
+        border: none;
+    }
+    .msg-box{
+        width: 100vw;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        background-color:rgb(184, 107, 52);
+        display: none;
+    }
+    .msg-text{
+        color: bisque;
+        font-size:35px;
+    }
+    .butns{
+        display: flex;
+        gap: 10px;
+    }
+    .new{
+        width: 150px;
+        height: 60px;
+        background-color: aquamarine;
+        border: none;
+        border-radius: 15px;
+        font-size: larger;
+    }
+    .rematch{
+        width: 150px;
+        height: 60px;
+        background-color:aqua;
+        border: none;
+        border-radius: 15px;
+        font-size: larger;
+    }
+    .score{
+        display: flex;
+        gap: 15px;
+        font-size: larger;
+    }
+    .score span{
+        display: flex;
+    }
+    @media (max-width:410px) {
+        .container{
+            width: 300px;
+
+        }
+        .box{
+            width: 80px;
+            height: 80px;
+             font-size: 3em;
+        }
+    }
+</style>
+<body>
+    <div class="msg-box">
+        <p class="msg-text">Winner</p>
+        <div class="score">
+            <span>X : <p class="xscore"> 3</p></span>
+            <span>O : <p class="oscore"> 2</p></span>
+            
+        </div>
+        <div class="butns">
+            <button class="rematch">REMATCH</button>
+            <button class="new">NEW GAME</button>
+        </div>
+    </div>
+    <div class="content">
+        <p>TIC TAC TOE</p>
+        <div class="container">
+            <div class="box" id="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+        <button class="btn"> reset</button>
+    </div>
+</body>
+<script>
+    console.log("hellow")
+    const boxs=document.querySelectorAll(".box")
+    const reset= document.querySelector('.btn')
+    const msg = document.querySelector(".msg-text")
+    const container = document.querySelector(".msg-box")
+    const game = document.querySelector(".new")
+    const xscore = document.querySelector(".xscore")
+    const oscore = document.querySelector(".oscore")
+    const rematch = document.querySelector(".rematch")
+    
+    
+
+    const winpattern= [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6],
+    ]
+
+    let player0=true;
+    
+    boxs.forEach((box) => {
+        box.addEventListener("click",()=>{
+            if(box.innerHTML===""){
+                if(player0){
+                    box.innerHTML="O"
+                    player0=false;
+                }else{
+                    box.innerHTML="X"
+                    
+                    player0=true;
+                }
+
+            
+            }else{
+                alert("box filed")
+            }
+            checkwinner()
+
+        })
+    })
+    let xwin=0 , owin =0
+    function checkwinner(){
+        for(pattern of winpattern){
+            let pos1=boxs[pattern[0]].innerText;
+            let pos2=boxs[pattern[1]].innerText;
+            let pos3=boxs[pattern[2]].innerText;
+            
+            if(pos1 !="" && pos2 !="" && pos3 != "" ){
+                if(pos1==pos2 && pos2==pos3){
+                    showwinner(pos1)
+                }
+            }
+           
+        }
+    }
+    function showwinner(winner){
+        container.style.display="flex"
+        msg.innerText=`Winner is, ${winner}`
+        if(player0){
+            xwin++;
+        }else{
+            owin++;
+        }
+        xscore.innerText=xwin;
+        oscore.innerText=owin;
+        
+        rematch.addEventListener('click',()=>{
+            container.style.display="none"
+            resette()
+        })
+        game.addEventListener('click',()=>{
+            container.style.display="none"
+            xwin=0;
+            owin=0;
+            if (winner=="O"){
+                player0=false;
+            }else{
+                player0=true;
+            }
+            resette()
+
+        })
+
+    }
+    function resette(){
+        boxs.forEach((box)=>{
+            box.innerHTML=""
+        })
+    }
+    reset.addEventListener("click",()=>{
+        resette()
+    })
+
+
+    
+</script>
+</html>

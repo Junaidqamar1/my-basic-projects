@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calender</title>
+</head>
+<style>
+    *{
+        padding: 0;margin: 0;
+    }
+    .container{
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+
+        align-items: center;
+        background-color: aquamarine;
+
+    }
+    .calender{
+        height: 40vh;
+        width: 40vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .right{
+        width: 50%;
+        height: 100%;
+        background-color: white;
+        font-size: xx-large;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+        box-shadow:  -20px -20px 50px black;
+        transition: all 2s;
+    }
+    .left{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+        width: 50%;
+        height: 100%;
+        background-color:cadetblue;
+        font-size: xx-large;
+        border-radius: 10px;
+        box-shadow:  20px 20px 50px black;
+        transition: all 2s;
+    }
+    .left:hover{
+        mix-blend-mode:color-dodge;
+        color: black;
+
+    }
+    .right:hover{
+        mix-blend-mode:color-dodge;
+        color: black;
+    }
+    .container h1{
+        color: brown;
+        font-size: 50px;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>CALENDER</h1>
+        <div class="calender">
+            <div class="right">
+                <p class="date">01</p>
+                <p class="day">sunday</p>
+            </div>
+            <div class="left">
+                <p class="month">januarty</p>
+                <p class="year">2020</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const today= new Date()
+    let date = document.querySelector(".date")
+    let day = document.querySelector(".day")
+    let month = document.querySelector(".month")
+    let year = document.querySelector(".year")
+
+    const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thrusday","Friday","Saturday"]
+    const allmonths=  [
+    "January", "February", "March", "April",
+    "May", "June", "July", "August",
+    "September", "October", "November", "December"
+]
+
+
+
+    day.innerHTML = weekdays[today.getDay()]
+    date.innerHTML = today.getDate()
+    month.innerHTML = allmonths[today.getMonth()]
+    year.innerHTML=today.getFullYear()
+
+    console.log(today)
+</script>
+</html>
